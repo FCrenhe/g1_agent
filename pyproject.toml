@@ -1,0 +1,26 @@
+[project]
+name = "g1-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastapi>=0.119.1",
+    "funasr>=1.2.7",
+    "ipython>=9.6.0",
+    "langchain-mcp-adapters>=0.1.11",
+    "langchain-openai>=1.0.1",
+    "langchain-tavily>=0.2.12",
+    "langgraph>=0.6.7",
+    "langgraph-checkpoint-postgres>=2.0.23",
+    "numpy>=2.3.4",
+    "opuslib-next>=1.1.5",
+    "python-dotenv>=1.1.1",
+    "sounddevice>=0.5.3",
+    "torch>=2.9.0",
+    "torchaudio>=2.9.0",
+    "typing-extensions>=4.15.0",
+    "webrtcvad-wheels==2.0.14",
+    "websockets>=15.0.1",
+]
