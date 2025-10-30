@@ -7,6 +7,14 @@ from pydantic import BaseModel, Field, conint, model_validator
 from typing_extensions import Annotated
 from typing import Literal
 import base64
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+# 环境变量
+
+TTS_URL = os.getenv("TTS_URL")
 
 class ServeReferenceAudio(BaseModel):
     audio: bytes
@@ -55,8 +63,6 @@ class ServeTTSRequest(BaseModel):
         # Allow arbitrary types for pytorch related types
         arbitrary_types_allowed = True
 
-#TTS_URL = "http://127.0.0.1:8080/v1/tts"
-TTS_URL = "http://192.168.1.143:6006/v1/tts"
 
 def tts_stream(text: str, reference_id: str = "0", temperature: float = 0.6):
     """流式合成 + 播放"""
@@ -77,7 +83,7 @@ def tts_stream(text: str, reference_id: str = "0", temperature: float = 0.6):
 
     pydantic_data = ServeTTSRequest(**data)
 
-    print(f"\n🟢 请求流式合成: {text}")
+   # print(f"\n🟢 请求流式合成: {text}")
     start_time = time.time()
     response = requests.post(
         TTS_URL,
@@ -91,7 +97,7 @@ def tts_stream(text: str, reference_id: str = "0", temperature: float = 0.6):
         print("❌ 请求失败:", response.status_code, response.text)
         return
 
-    print("✅ 开始接收音频流...\n")
+  #  print("✅ 开始接收音频流...\n")
 
     # 初始化 PyAudio
     p = pyaudio.PyAudio()
@@ -108,7 +114,7 @@ def tts_stream(text: str, reference_id: str = "0", temperature: float = 0.6):
         p.terminate()
 
     end_time = time.time()
-    print(f"🎵 播放结束，用时 {end_time - start_time:.2f} 秒\n")
+   # print(f"🎵 播放结束，用时 {end_time - start_time:.2f} 秒\n")
 
 
 def main():

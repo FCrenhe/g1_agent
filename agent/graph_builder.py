@@ -19,6 +19,9 @@ load_dotenv()
 open_ai_kpi_key = os.getenv("open_ai_api_key")
 DB_URI = os.getenv("DB_URI")
 
+
+
+
 class State(TypedDict):
     messages: Annotated[list, add_messages]
 

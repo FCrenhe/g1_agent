@@ -5,11 +5,18 @@ import websockets
 import numpy as np
 import webrtcvad
 import torch
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+# 环境变量
+
+WS_URL = os.getenv("WS_URL")
 class ASRClient:
     def __init__(
         self,
-        ws_url="ws://127.0.0.1:8000/ws?format=pcm",
+        ws_url=WS_URL,
         sample_rate=16000,
         chunk_ms=320,
         frame_ms=32,
@@ -76,10 +83,10 @@ class ASRClient:
             
             if isinstance(result, dict):
                 if "start" in result:
-                    print(f"🎙️ 检测到语音开始 @ {result['start']}")
+                  #  print(f"🎙️ 检测到语音开始")
                     self.speech_detected = True
                 elif "end" in result:
-                    print(f"🔇 检测到语音结束 @ {result['end']}")
+                  #  print(f"🔇 检测到语音结束")
                     self.speech_detected = False
                     asyncio.run_coroutine_threadsafe(self.audio_queue.put(None), loop)
             
@@ -134,9 +141,10 @@ class ASRClient:
             if msg_type == "ready":
                 print("服务器就绪，开始传输音频。")
             elif msg_type == "partial":
-                print(f"\r用户：{text}", end="", flush=True)
+                continue
+               # print(f"\r用户：{text}", end="", flush=True)
             elif msg_type == "final":
-                print(f"\r用户：{text}")
+                print(f"用户:{text}")
                 if self.on_final:
                     await self.on_final(self, text)
             elif msg_type == "error":
