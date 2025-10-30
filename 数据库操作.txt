@@ -1,0 +1,19 @@
+sudo apt update
+sudo apt install -y postgresql postgresql-contrib
+
+
+
+
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+
+
+sudo -u postgres psql
+ALTER USER postgres WITH PASSWORD '123';
+
+sudo vim /etc/postgresql/*/main/postgresql.conf
+修改#port = 5442
+sudo systemctl restart postgresql
+
+psql postgresql://postgres:123@localhost:5442/postgres

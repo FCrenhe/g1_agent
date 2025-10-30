@@ -59,4 +59,5 @@ async def build_graph():
 
     checkpointer = InMemorySaver()
     graph = graph_builder.compile(checkpointer)
+    
     return graph

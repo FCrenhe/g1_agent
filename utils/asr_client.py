@@ -42,9 +42,18 @@ class ASRClient:
         self.running = False
         self.on_final = on_final
         self.energy_threshold = 300
+        
+        self.recording_enabled =True
 
     def _audio_callback(self, indata, frames, time, status, loop):
+        
         """录音线程的回调函数"""
+        
+        
+        if not getattr(self, "recording_enabled", True):
+           # print("正在播放，停止录音")
+            return
+        
         if status:
             print("⚠️ 音频状态:", status)
 
@@ -129,7 +138,7 @@ class ASRClient:
             elif msg_type == "final":
                 print(f"\r用户：{text}")
                 if self.on_final:
-                    await self.on_final(text)
+                    await self.on_final(self, text)
             elif msg_type == "error":
                 print("\n 错误：", data)
                 break

@@ -16,6 +16,7 @@ dependencies = [
     "langgraph-checkpoint-postgres>=2.0.23",
     "numpy>=2.3.4",
     "opuslib-next>=1.1.5",
+    "pyaudio>=0.2.14",
     "python-dotenv>=1.1.1",
     "sounddevice>=0.5.3",
     "torch>=2.9.0",

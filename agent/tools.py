@@ -16,4 +16,5 @@ async def load_tools():
     tools_mcp = await client.get_tools()
 
     search_tool = TavilySearch(max_results=2)
-    return [multiply, speak, weather] + tools_mcp
+    return [multiply, weather] + tools_mcp
+
